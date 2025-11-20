@@ -25,4 +25,4 @@ app.listen(process.env.PORT,()=>{
     console.log("listening at port: ",`${process.env.PORT}`);
 })
 
-export { app };
+export default app;
