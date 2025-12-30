@@ -7,8 +7,8 @@ import cookieParser from "cookie-parser";
 
 const app=express();
 
-app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+app.use(cors({                         //middlewares me hum----AAP.USE()----krte h mostly times
+    origin: process.env.CORS_ORIGIN,              // kha se access allow krna h
     credentials:true
 }))
 
