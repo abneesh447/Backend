@@ -1,5 +1,17 @@
 import dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
+dotenv.config();
+
+//cloudinary config idhr kiya kyuki cloudinary.js me krne se pta nhi
+// kyu config nhi ho rha tha to error a rha tha ,cloudinary pe upload hi hi ho rha tha
+
+import { v2 as cloudinary } from 'cloudinary';
+
+cloudinary.config({ 
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY, 
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+
 
 import app from "./app.js";
 
@@ -44,3 +56,4 @@ const app= express();
 } )()
 
 */
+

@@ -1,11 +1,11 @@
 import mongoose ,{Schema} from "mongoose";
 
-import { JsonWebTokenError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 
 //hrr baar mongoose.Schema na likh pde isiliye {Schema} bhi import kr liya
 
-const userSchema = Schema({
+const userSchema = new Schema({
     username :{
         type: String,
         required: true,
@@ -46,7 +46,7 @@ const userSchema = Schema({
             ref: "Video"
         }
     ],
-    refreshTocken: {
+    refreshToken: {
         type: String
     },
 
