@@ -28,4 +28,45 @@ const uploadOnCloudinary = async (localFilePath) => {
     }
 }
 
-export {uploadOnCloudinary};
+const extractPublicIds = (cloudinaryUrl) =>{
+  // Remove the base URL and split by '/'
+  const parts = cloudinaryUrl.split('/');
+  
+  // Find the index of 'upload' or 'private'
+  const uploadIndex = parts.findIndex(part => 
+    part === 'upload' || part === 'private' || part === 'authenticated'
+  );
+  
+  // Get everything after upload/private, excluding version if present
+  const relevantParts = parts.slice(uploadIndex + 1);
+  
+  // Remove version (starts with 'v' followed by numbers)
+  const withoutVersion = relevantParts.filter(part => 
+    !/^v\d+$/.test(part)
+  );
+  
+  // Join the remaining parts and remove file extension
+  const publicIdWithExt = withoutVersion.join('/');
+  const publicId = publicIdWithExt.replace(/\.[^/.]+$/, '');
+  
+  return publicId;
+}
+
+const deleteFromCloudinary = async (publicId) => {
+    try {
+        const result = await cloudinary.uploader.destroy(publicId, { 
+            invalidate: true 
+        });
+        console.log("Deletion result:", result);
+        return result;
+    } catch (error) {
+        console.error("Error deleting from Cloudinary:", error);
+        return null; 
+    }
+};
+
+export {
+    uploadOnCloudinary,
+    extractPublicIds,
+    deleteFromCloudinary
+};
